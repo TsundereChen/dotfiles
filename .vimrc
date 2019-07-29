@@ -16,6 +16,13 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 " ctrlp plugin
 Plugin 'ctrlpvim/ctrlp.vim'
+" NerdTREE plugin
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+" EasyMotion plugin
+Plugin 'easymotion/vim-easymotion'
+" YouCompleteMe plugin
+Plugin 'ycm-core/youcompleteme'
 
 call vundle#end()
 
@@ -62,9 +69,13 @@ set viminfo='100,<9999,s100
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
-" Automatically save and load folds
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview"
+" Tab related setting
+nnoremap <C-t>n :tabnew<CR>
+nnoremap <C-t>c :bd<CR> :tabclose<CR>
+nnoremap <C-t>j :tabprevious<CR>
+nnoremap <C-t>k :tabnext<CR>
+
+" Window related setting
 
 " vim-airline settings
 let g:airline#extensions#tabline#enabled = 1
@@ -72,3 +83,38 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_theme = 'onedark'
 let g:airline_powerline_fonts = 1
 
+" NerdTREE settings
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" EasyMotion settings
+let mapleader = " "
+" <Leader>f{char} to move to {char}
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader><Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+let g:EasyMotion_smartcase = 1
+" This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
