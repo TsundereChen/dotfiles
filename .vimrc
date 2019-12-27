@@ -121,7 +121,6 @@ let g:EasyMotion_smartcase = 1
 " This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-
 " Enable EasyAlign
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
